@@ -1,6 +1,11 @@
 import telebot
 from telebot import types
 
+from pyowm import OWM
+from pyowm.utils import config
+from pyowm.utils import timestamps
+
+
 owm = OWM('your free OWM API key')
 mgr = owm.weather_manager()
 
