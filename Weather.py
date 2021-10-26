@@ -6,19 +6,20 @@ from pyowm.utils import config
 from pyowm.utils import timestamps
 
 
-owm = OWM('your free OWM API key')
+owm = OWM('b57da7a65340381f8cabd14555c9dee3')
 mgr = owm.weather_manager()
 
 bot = telebot.TeleBot('1328514129:AAFTw6SJ_ri42qHTWFHZN7A1u3GJEOKrwRs')
 
 def get_current_weather(city):
     observation = mgr.weather_at_place(city)
-    
+
+
     return observation.weather
 
 def get_forecast(city):
     forecast = mgr.forecast_at_place(city, 'daily')
-    
+
     return forecast.will_be_clear_at(timestamps.tomorrow())
 
 @bot.message_handler(content_types=['text'])
@@ -32,7 +33,10 @@ def get_text_messages(message):
 
         markup.row(buttonA, buttonB)
         markup.row(buttonC)
+        w = get_current_weather('Kyiv, UA')
         bot.send_message(message.chat.id, 'Впишы название города для получения прогноза', reply_markup=markup)
+        bot.send_message(message.chat.id, 'Прогода по Києву:' + str(w.temperature('celsius')['temp']) + '°C')
+        # bot.send_message(message.chat.id, 'Прогода по Києву: \n' + get_current_weather('Kyiv,UA'))
 
 
     elif message.text =="/help":
