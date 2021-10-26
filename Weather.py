@@ -1,7 +1,20 @@
 import telebot
 from telebot import types
 
+owm = OWM('your free OWM API key')
+mgr = owm.weather_manager()
+
 bot = telebot.TeleBot('1328514129:AAFTw6SJ_ri42qHTWFHZN7A1u3GJEOKrwRs')
+
+def get_current_weather(city):
+    observation = mgr.weather_at_place(city)
+    
+    return observation.weather
+
+def get_forecast(city):
+    forecast = mgr.forecast_at_place(city, 'daily')
+    
+    return forecast.will_be_clear_at(timestamps.tomorrow())
 
 @bot.message_handler(content_types=['text'])
 def get_text_messages(message):
