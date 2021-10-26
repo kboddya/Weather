@@ -15,7 +15,7 @@ def get_text_messages(message):
       markup.row(buttonA, buttonB)
       markup.row(buttonC)
       bot.send_message(message.chat.id, 'Впишы название города для получения прогноза', reply_markup=markup)
-      bot.send_message(message.from_user.id, "Впишы название города для получения прогноза")
+
 
     elif message.text =="/help":
         bot.send_message(message.from_user.id, "Напиши прогноз")
