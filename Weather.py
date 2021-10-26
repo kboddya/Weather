@@ -24,15 +24,16 @@ def get_forecast(city):
 
 @bot.message_handler(content_types=['text'])
 def get_text_messages(message):
+    markup = types.ReplyKeyboardMarkup()
+    buttonA = types.KeyboardButton('Прогноз')
+    buttonB = types.KeyboardButton('/start')
+    buttonC = types.KeyboardButton('/help')
+
+    markup.row(buttonA, buttonB)
+    markup.row(buttonC)
     if message.text =="Прогноз" or message.text == "/start":
 
-        markup = types.ReplyKeyboardMarkup()
-        buttonA = types.KeyboardButton('Прогноз')
-        buttonB = types.KeyboardButton('/start')
-        buttonC = types.KeyboardButton('/help')
 
-        markup.row(buttonA, buttonB)
-        markup.row(buttonC)
         w = get_current_weather('Kyiv, UA')
         bot.send_message(message.chat.id, 'Впишы название города для получения прогноза', reply_markup=markup)
         bot.send_message(message.chat.id, 'Прогода по Києву:' + str(w.temperature('celsius')['temp']) + '°C')
