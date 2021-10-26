@@ -7,14 +7,14 @@ bot = telebot.TeleBot('1328514129:AAFTw6SJ_ri42qHTWFHZN7A1u3GJEOKrwRs')
 def get_text_messages(message):
     if message.text =="Прогноз" or message.text == "/start":
 
-      markup = types.ReplyKeyboardMarkup()
-      buttonA = types.KeyboardButton('Прогноз')
-      buttonB = types.KeyboardButton('/start')
-      buttonC = types.KeyboardButton('/help')
+        markup = types.ReplyKeyboardMarkup()
+        buttonA = types.KeyboardButton('Прогноз')
+        buttonB = types.KeyboardButton('/start')
+        buttonC = types.KeyboardButton('/help')
 
-      markup.row(buttonA, buttonB)
-      markup.row(buttonC)
-      bot.send_message(message.chat.id, 'Впишы название города для получения прогноза', reply_markup=markup)
+        markup.row(buttonA, buttonB)
+        markup.row(buttonC)
+        bot.send_message(message.chat.id, 'Впишы название города для получения прогноза', reply_markup=markup)
 
 
     elif message.text =="/help":
