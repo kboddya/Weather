@@ -65,7 +65,7 @@ def handle(call):
         w = get_current_weather(cities[call.data])
         bot.send_message(
         call.message.chat.id,
-        f"Місто {call.data}:  {str(w.detailed_status).title()} {str(w.temperature('celsius')['temp'])} °C {w.wind()['speed'] } М/с"
+        f"Місто {call.data}:  {str(w.detailed_status).title()} \nТемпература: {str(w.temperature('celsius')['temp'])} °C \nШвидкість вітру: {w.wind()['speed'] } М/с"
         )
         bot.send_message(call.message.chat.id, "Вибери місто", reply_markup=get_markup())
         bot.answer_callback_query(call.id)
