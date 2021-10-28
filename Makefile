@@ -14,7 +14,7 @@ push:
 down:
 	heroku ps:scale worker=0
 
-deploy: commit
+deploy:
 	heroku ps:scale worker=1
 	git push heroku master
 
