@@ -21,5 +21,6 @@ deploy:
 
 logs:
 	heroku logs --tail
+	#hi
 
 .DEFAULT_GOAL := run
