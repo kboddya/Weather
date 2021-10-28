@@ -9,7 +9,7 @@ commit:
 	git commit -m "Fix main.py: Add none stop bot polling"
 
 push:
-	git push  --set-upstream origin master
+	git  push  origin master
 
 
 down:
