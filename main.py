@@ -9,6 +9,7 @@ from pyowm.utils.config import get_default_config
 import os
 from dotenv import load_dotenv
 
+
 load_dotenv()
 
 TOKEN = os.getenv('TOKEN')
@@ -16,7 +17,6 @@ OWMKEY = os.getenv('OWMKEY')
 
 config_dict = get_default_config()
 config_dict['language'] = 'ua'
-
 
 owm = OWM(OWMKEY, config_dict )
 mgr = owm.weather_manager()
@@ -26,7 +26,6 @@ bot = telebot.TeleBot(TOKEN)
 def get_current_weather(city):
     observation = mgr.weather_at_place(city)
 
-
     return observation.weather
 
 cities = {
@@ -35,12 +34,14 @@ cities = {
     "Припять" : "Pripyat, UA"
 }
 
+
 def get_forecast(city):
     forecast = mgr.forecast_at_place(city, 'daily')
 
     return forecast.will_be_clear_at(timestamps.tomorrow())
 
     w = get_current_weather([])
+
 
 def get_markup() -> types.InlineKeyboardMarkup:
         markup = types.InlineKeyboardMarkup()
@@ -51,6 +52,7 @@ def get_markup() -> types.InlineKeyboardMarkup:
         markup.row(buttonA, buttonB, buttonC)
         return markup
 
+
 @bot.message_handler(content_types=['text'])
 def get_text_messages(message):
 
@@ -59,19 +61,16 @@ def get_text_messages(message):
     if message.text == "/start":
         bot.send_message(message.from_user.id, "Вибери місто", reply_markup=get_markup())
 
+
 @bot.callback_query_handler(func=lambda call: True)
 def handle(call):
-        bot.delete_message(call.message.chat.id, call.message.id)
-        w = get_current_weather(cities[call.data])
-        bot.send_message(
+    bot.delete_message(call.message.chat.id, call.message.id)
+    w = get_current_weather(cities[call.data])
+    bot.send_message(
         call.message.chat.id,
         f"Місто {call.data}:  {str(w.detailed_status).title()} \nТемпература: {str(w.temperature('celsius')['temp'])} °C \nШвидкість вітру: {w.wind()['speed'] } М/с"
-        )
-        bot.send_message(call.message.chat.id, "Вибери місто", reply_markup=get_markup())
-        bot.answer_callback_query(call.id)
+    )
+    bot.send_message(call.message.chat.id, "Вибери місто", reply_markup=get_markup())
+    bot.answer_callback_query(call.id)
 
-
-
-
-
-bot.polling()
+bot.polling(none_stop=True, interval=0)
