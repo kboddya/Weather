@@ -71,8 +71,8 @@ def handle(call):
         "Місто {city}: {weather}\nТемпература: {temp} °C\nШвидкість вітру: {wind} М/с".format(
             city=call.data,
             weather=str(w.detailed_status).title(),
-            temp=w.temperature('celsius')['temp'],
-            wind=w.wind()['speed']
+            temp=round(w.temperature('celsius') ['temp']),
+            wind=round(w.wind()['speed'])
         )
     )
     bot.send_message(call.message.chat.id, "Вибери місто", reply_markup=get_markup())
