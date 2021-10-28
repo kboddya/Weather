@@ -19,4 +19,7 @@ deploy:
 	heroku ps:scale worker=1
 	git push heroku master
 
+logs:
+	heroku logs --tail
+
 .DEFAULT_GOAL := run
