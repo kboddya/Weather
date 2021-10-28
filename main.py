@@ -44,13 +44,13 @@ def get_forecast(city):
 
 
 def get_markup() -> types.InlineKeyboardMarkup:
-        markup = types.InlineKeyboardMarkup()
-        buttonA = types.InlineKeyboardButton('Київ', callback_data='Київ')
-        buttonB = types.InlineKeyboardButton('Чернівці', callback_data='Чернівці')
-        buttonC = types.InlineKeyboardButton('Припять', callback_data='Припять')
+    markup = types.InlineKeyboardMarkup()
+    buttonA = types.InlineKeyboardButton('Київ', callback_data='Київ')
+    buttonB = types.InlineKeyboardButton('Чернівці', callback_data='Чернівці')
+    buttonC = types.InlineKeyboardButton('Припять', callback_data='Припять')
 
-        markup.row(buttonA, buttonB, buttonC)
-        return markup
+    markup.row(buttonA, buttonB, buttonC)
+    return markup
 
 
 @bot.message_handler(content_types=['text'])
