@@ -11,7 +11,11 @@ commit:
 push: commit
 	git push origin master
 
+down:
+	heroku ps:scale worker=0
+
 deploy: commit
+	heroku ps:scale worker=1
 	git push heroku master
 
 .DEFAULT_GOAL := run
