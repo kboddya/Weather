@@ -78,6 +78,6 @@ def handle(call):
     bot.send_message(call.message.chat.id, "Вибери місто", reply_markup=get_markup())
     bot.answer_callback_query(call.id)
 
-#Hi
+#Hi, I am student
 
 bot.polling(none_stop=True, interval=0)
