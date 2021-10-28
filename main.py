@@ -31,12 +31,23 @@ def get_current_weather(city):
 cities = {
     "Київ" : "Kyiv, UA",
     "Чернівці" : "Chernivtsi, UA",
-    "Припять" : "Pripyat, UA"
+    "Припять" : "Pripyat, UA",
+    "Львів" : "Lviv, UA",
+    "Тернопіль" : "Ternopil, UA",
+    "Одеса" : "Odessa, UA",
+    "Житомир" : "Zhytomyr, UA",
+    "Полтава" : "Poltava, UA",
+    "Кропивницкий" : "Kropyvnytskyi, UA ",
+    "Івано-Франківськ" : "Ivano-Frankivsk, UA",
+    "Харків" : "Kharkiv, UA ",
+    "Хмельницкий" : "Khmelnytskyi, UA"
+
 }
 
 
 def get_forecast(city):
     forecast = mgr.forecast_at_place(city, 'daily')
+    answer = forecast.will_be_clear_at(timestamps.tomorrow())
 
     return forecast.will_be_clear_at(timestamps.tomorrow())
 
@@ -48,8 +59,21 @@ def get_markup() -> types.InlineKeyboardMarkup:
     buttonA = types.InlineKeyboardButton('Київ', callback_data='Київ')
     buttonB = types.InlineKeyboardButton('Чернівці', callback_data='Чернівці')
     buttonC = types.InlineKeyboardButton('Припять', callback_data='Припять')
+    buttonD = types.InlineKeyboardButton('Львів', callback_data='Львів')
+    buttonE = types.InlineKeyboardButton('Тернопіль', callback_data='Тернопіль')
+    buttonF = types.InlineKeyboardButton('Одеса', callback_data='Одеса')
+    buttonG = types.InlineKeyboardButton('Житомир', callback_data='Житомир')
+    buttonH = types.InlineKeyboardButton('Полтава', callback_data='Полтава')
+    buttonI = types.InlineKeyboardButton('Кропивницкий', callback_data='Кропивницкий')
+    buttonJ = types.InlineKeyboardButton('Івано-Франківськ', callback_data='Івано-Франківськ')
+    buttonK = types.InlineKeyboardButton('Харків', callback_data='Харків')
+    buttonL = types.InlineKeyboardButton('Хмельницкий', callback_data='Хмельницкий')
+
 
     markup.row(buttonA, buttonB, buttonC)
+    markup.row(buttonD, buttonE, buttonF)
+    markup.row(buttonG, buttonH, buttonI)
+    markup.row(buttonJ, buttonK, buttonL)
     return markup
 
 
@@ -68,11 +92,20 @@ def handle(call):
     w = get_current_weather(cities[call.data])
     bot.send_message(
         call.message.chat.id,
-        "Місто {city}: {weather}\nТемпература: {temp} °C\nШвидкість вітру: {wind} М/с".format(
+        "В місті {city} зараз {weather}\n{text_temp} {temp} °C\n{text_max} {max} °C\n{text_min} {min} °C\n{text_wind} {wind} М/с".format(
+        #\n{text_like} {like} °C
             city=call.data,
             weather=str(w.detailed_status).title(),
             temp=round(w.temperature('celsius') ['temp']),
-            wind=round(w.wind()['speed'])
+            wind=round(w.wind()['speed']),
+            max=round(w.temperature('celsius') ['temp_max']),
+            min=round(w.temperature('celsius') ['temp_min']),
+            #like=round(w.temperature('celsius') ['feels_like']),
+            text_temp='Температура повітря',
+            text_max='Повітря прогріється максимум до',
+            text_min='Мінімальна температура повітря ставитеме',
+            #text_like='Відчувається як',
+            text_wind='Середня швидкість вітру'
         )
     )
     bot.send_message(call.message.chat.id, "Вибери місто", reply_markup=get_markup())
