@@ -9,7 +9,8 @@ commit:
 	git commit -m "Fix main.py: Add none stop bot polling"
 
 push:
-	git push origin master
+	git push  --set-upstream origin master
+
 
 down:
 	heroku ps:scale worker=0
