@@ -2,13 +2,13 @@ run:
 	py main.py
 
 set_url:
-	git remote set-url origin https://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@github.com/bokoyolo/Weather.git
+	git remote set-url origin https://bokoyolo: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@github.com/bokoyolo/Weather.git
 
 commit:
 	git add .
 	git commit -m "Fix main.py: Add none stop bot polling"
 
-push: commit
+push:
 	git push origin master
 
 down:
