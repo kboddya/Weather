@@ -104,13 +104,12 @@ def handle(call):
             text_temp='Температура повітря',
             text_max='Повітря прогріється максимум до',
             text_min='Мінімальна температура повітря',
-            #text_like='Відчувається як',
             text_wind='Середня швидкість вітру'
         )
     )
     bot.send_message(call.message.chat.id, "Вибери місто", reply_markup=get_markup())
     bot.answer_callback_query(call.id)
-    
+
 
 
 bot.polling(none_stop=True, interval=0)
