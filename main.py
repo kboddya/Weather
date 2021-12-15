@@ -92,7 +92,7 @@ def handle(call):
     w = get_current_weather(cities[call.data])
     bot.send_message(
         call.message.chat.id,
-        "В місті {city} зараз {weather}\n{text_temp} {temp}°C, {f}°F\n{text_max} {max}°C\n{text_min} {min}°C\n{text_wind} {wind} М/с".format(
+        "В місті {city} зараз {weather}\n{text_temp} {temp}°C, {f}°F\n{text_max} {max}°C, {fmax}°F\n{text_min} {min}°C, {fmin}°F\n{text_wind} {wind} М/с".format(
             city=call.data,
             weather=str(w.detailed_status).title(),
             temp=round(w.temperature('celsius') ['temp']),
@@ -100,6 +100,8 @@ def handle(call):
             wind=round(w.wind()['speed']),
             max=round(w.temperature('celsius') ['temp_max']),
             min=round(w.temperature('celsius') ['temp_min']),
+            fmax=round(w.temperature('fahrenheit') ['temp_max']),
+            fmin=round(w.temperature('fahrenheit') ['temp_min']),
             text_temp='Температура повітря',
             text_max='Повітря прогріється максимум до',
             text_min='Мінімальна температура повітря',
